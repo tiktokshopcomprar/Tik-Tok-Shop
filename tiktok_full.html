@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Produto TikTok Completo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, Arial; background: #fff; }
+
+    /* HERO: CARROSSEL */
+    .hero { position: relative; overflow: hidden; }
+    .hero-track {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .hero-slide { flex: 0 0 100%; scroll-snap-align: center; }
+    .hero-slide img { width: 100%; display: block; }
+
+    .hero-counter {
+      position: absolute; bottom: 10px; right: 10px;
+      background: rgba(0,0,0,0.6); color: #fff;
+      padding: 4px 10px; border-radius: 12px; font-size: 12px;
+    }
+
+    /* TÍTULO / PREÇO */
+    .section { padding: 15px; border-bottom: 1px solid #eee; }
+    .discount { background:#ff0a6c; padding:6px 10px; border-radius:6px; color:#fff; font-size:14px; display:inline-block; }
+    .price { font-size:28px; color:#ff0a6c; font-weight:700; }
+    .old { text-decoration:line-through; color:#888; margin-left:8px; }
+    .installments { color:#444; margin-top:5px; }
+
+    /* CTA */
+    .bottom-bar {
+      position: fixed; bottom: 0; left: 0; width: 100%;
+      background:#fff; padding:10px; box-shadow:0 -3px 10px rgba(0,0,0,0.1);
+      display:flex; gap:10px;
+    }
+    .btn { flex:1; text-align:center; padding:12px; border-radius:20px; font-weight:600; }
+    .btn-secondary { border:1px solid #ccc; background:#fff; }
+    .btn-primary { background:#ff0a6c; color:#fff; }
+
+  </style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-track" id="hero">
+    <div class="hero-slide"><img src="f5513b18-a5e6-4217-b78c-4547ee336028.png"></div>
+    <div class="hero-slide"><img src="e6b62c70-e542-4dba-abd2-0a6c94a06c92.png"></div>
+    <div class="hero-slide"><img src="ad393513-9f18-4f53-a98f-4aca9becd50e.png"></div>
+    <div class="hero-slide"><img src="784fb339-1b62-4eb4-a838-c98bd05152dd.png"></div>
+    <div class="hero-slide"><img src="af60f3d2-ca68-4a5e-a329-f306a231a6a9.png"></div>
+    <div class="hero-slide"><img src="afbcfd83-f09b-43cf-a4a1-98f98d9358a5.png"></div>
+    <div class="hero-slide"><img src="abb541e9-1765-4d01-8c15-27c47bc8f725.png"></div>
+    <div class="hero-slide"><img src="5e2aeed1-9125-49f7-9836-26830194836d.png"></div>
+    <div class="hero-slide"><img src="e4eb751c-cbea-4728-af14-40d9c670ab2d.png"></div>
+  </div>
+  <div class="hero-counter" id="count">1/9</div>
+</div>
+
+<!-- TÍTULO / PREÇO -->
+<div class="section">
+  <div class="discount">-35% • A partir de R$ 89,90</div>
+  <div><span class="price">R$ 89,90</span><span class="old">R$138,81</span></div>
+  <div class="installments">2x de R$ 44,09 sem juros</div>
+</div>
+
+<!-- CTA -->
+<div class="bottom-bar">
+  <div class="btn btn-secondary">Adicionar ao carrinho</div>
+  <div class="btn btn-primary">Comprar agora</div>
+</div>
+
+<script>
+  const car = document.getElementById("hero");
+  const count = document.getElementById("count");
+
+  car.addEventListener("scroll", () => {
+    const width = car.clientWidth;
+    const i = Math.round(car.scrollLeft / width);
+    count.textContent = (i+1) + "/9";
+  });
+</script>
+
+</body>
+</html>
