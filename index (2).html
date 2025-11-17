@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Liquidificador Mondial L-99</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: #ffffff;
+      color: #111;
+    }
+    .app-shell {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #fff;
+      padding-bottom: 120px; /* espaço pro footer fixo */
+    }
+
+    /* Top bar estilo app */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-bottom: 1px solid #f0f0f0;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 50;
+    }
+    .top-bar-left,
+    .top-bar-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .icon-btn {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      border: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    /* Hero image */
+    .hero {
+      position: relative;
+    }
+    .hero img {
+      width: 100%;
+      display: block;
+    }
+    .hero-counter {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    /* Preço / oferta */
+    .section {
+      padding: 14px 14px;
+      border-bottom: 1px solid #f2f2f2;
+    }
+    .discount-badge {
+      display: inline-block;
+      background: #ff146e;
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .price-line {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .price-main {
+      font-size: 28px;
+      font-weight: 700;
+      color: #ff146e;
+    }
+    .price-old {
+      font-size: 14px;
+      color: #999;
+      text-decoration: line-through;
+    }
+    .installments {
+      margin-top: 4px;
+      font-size: 14px;
+      color: #444;
+    }
+    .extra-offer {
+      margin-top: 8px;
+      font-size: 13px;
+      background: #ffe6f1;
+      color: #ff146e;
+      padding: 6px 8px;
+      border-radius: 6px;
+    }
+
+    /* Tab bar */
+    .tab-bar {
+      display: flex;
+      border-bottom: 1px solid #f0f0f0;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      font-size: 14px;
+      color: #666;
+    }
+    .tab.active {
+      color: #111;
+      font-weight: 600;
+      border-bottom: 2px solid #111;
+    }
+
+    /* Info principal */
+    .product-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    .rating-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #555;
+    }
+    .stars {
+      color: #ffb800;
+      font-size: 14px;
+    }
+
+    .shipping {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.4;
+    }
+    .shipping .old {
+      text-decoration: line-through;
+      color: #999;
+    }
+    .shipping .green {
+      color: #00b800;
+      font-weight: 600;
+    }
+
+    .variants {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .variant {
+      flex: 1;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 6px 4px 8px;
+      text-align: center;
+      font-size: 12px;
+    }
+    .variant img {
+      width: 100%;
+      border-radius: 6px;
+      margin-bottom: 4px;
+    }
+
+    .protection-box {
+      background: #fff7e6;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* Strips */
+    .strip {
+      padding: 10px 14px;
+      border-bottom: 1px solid #f2f2f2;
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .strip-left {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .strip-pill {
+      display: inline-block;
+      background: #ffe3f0;
+      color: #ff146e;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 10px;
+    }
+    .strip-highlight {
+      color: #ff146e;
+      font-weight: 600;
+    }
+    .strip-right {
+      font-size: 12px;
+      text-align: right;
+      color: #777;
+    }
+
+    /* Carrossel horizontal genérico */
+    .h-scroll {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .video-card {
+      min-width: 120px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+      font-size: 11px;
+      position: relative;
+    }
+    .video-card img {
+      width: 100%;
+      display: block;
+    }
+    .video-badge {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      background: rgba(0,0,0,0.7);
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 10px;
+    }
+
+    /* Avaliações */
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .reviews-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .review-card {
+      border-radius: 10px;
+      border: 1px solid #f0f0f0;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 13px;
+    }
+    .review-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #ddd;
+    }
+    .review-name {
+      font-weight: 600;
+      font-size: 13px;
+    }
+    .review-meta {
+      font-size: 11px;
+      color: #777;
+    }
+    .review-photos {
+      display: flex;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .review-photos img {
+      width: 24%;
+      border-radius: 6px;
+    }
+
+    /* Loja */
+    .store-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 10px;
+      border-radius: 10px;
+      border: 1px solid #f0f0f0;
+      margin-top: 6px;
+    }
+    .store-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .store-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #ffde00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .store-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .store-meta {
+      font-size: 11px;
+      color: #777;
+    }
+    .store-btn {
+      padding: 6px 12px;
+      border-radius: 16px;
+      border: 1px solid #111;
+      font-size: 12px;
+      text-decoration: none;
+      color: #111;
+    }
+
+    /* Recomendações */
+    .product-card {
+      min-width: 150px;
+      border-radius: 10px;
+      border: 1px solid #f0f0f0;
+      padding: 8px;
+      font-size: 12px;
+    }
+    .product-card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 6px;
+    }
+    .product-price {
+      color: #ff146e;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .badge-small {
+      font-size: 11px;
+      padding: 2px 5px;
+      border-radius: 4px;
+      background: #ffe6f1;
+      color: #ff146e;
+      display: inline-block;
+      margin-top: 2px;
+    }
+
+    /* CTA fixo inferior */
+    .bottom-bar-wrap {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #fff;
+      box-shadow: 0 -3px 10px rgba(0,0,0,0.08);
+      z-index: 60;
+    }
+    .bottom-bar {
+      max-width: 480px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 8px;
+      font-size: 11px;
+    }
+    .bottom-icon-col {
+      width: 52px;
+      text-align: center;
+      color: #555;
+    }
+    .bottom-icon {
+      font-size: 18px;
+      margin-bottom: 2px;
+    }
+    .bottom-btn-secondary,
+    .bottom-btn-primary {
+      flex: 1;
+      text-align: center;
+      padding: 10px 6px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .bottom-btn-secondary {
+      background: #fff;
+      border: 1px solid #ddd;
+      color: #111;
+    }
+    .bottom-btn-primary {
+      background: #ff146e;
+      border: none;
+      color: #fff;
+    }
+
+    a { color: inherit; }
+  </style>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- Top bar estilo app -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <div class="icon-btn">×</div>
+    </div>
+    <div class="top-bar-right">
+      <div class="icon-btn">⇪</div>
+      <div class="icon-btn">🛒</div>
+      <div class="icon-btn">⋯</div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <img src="https://via.placeholder.com/480x480?text=Liquidificador+Mondial" alt="Liquidificador Mondial">
+    <div class="hero-counter">1/9</div>
+  </div>
+
+  <!-- Preço principal -->
+  <div class="section">
+    <div class="discount-badge">-35% • A partir de R$ 89,90</div>
+    <div class="price-line">
+      <div class="price-main">R$ 89,90</div>
+      <div class="price-old">R$ 138,81</div>
+    </div>
+    <div class="installments">2x R$ 44,09 sem juros</div>
+    <div class="extra-offer">
+      Compre R$ 199,99 e ganhe R$ 2 de desconto em pedidos selecionados.
+    </div>
+  </div>
+
+  <!-- Strip afiliado / comissão (igual print) -->
+  <div class="strip">
+    <div class="strip-left">
+      <span class="strip-pill">🔥 3.8K vendidos no mês passado</span>
+      <span>Ganhe <span class="strip-highlight">R$ 0,88</span> por venda</span>
+      <span style="color:#777;">1% comissão</span>
+    </div>
+    <div class="strip-right">
+      🎁 Amostra<br>reembolsável
+    </div>
+  </div>
+
+  <!-- Abas -->
+  <div class="tab-bar">
+    <div class="tab active">Visão geral</div>
+    <div class="tab">Avaliações</div>
+    <div class="tab">Descrição</div>
+    <div class="tab">Recomendações</div>
+  </div>
+
+  <!-- Visão geral: título, rating, envio -->
+  <div class="section">
+    <div class="product-title">
+      Liquidificador Mondial L-99 Turbo 3 Velocidades 550W
+    </div>
+    <div class="rating-line">
+      <span class="stars">★★★★☆</span>
+      <span>4,8 (2,4 mil)</span>
+      <span>• 130,2K vendidos on‑line</span>
+    </div>
+    <div class="shipping" style="margin-top:8px;">
+      Receba entre <strong>21–28 de nov</strong><br>
+      Taxa de envio: <span class="old">R$ 27,50</span> R$ 7,50<br>
+      <span class="green">Desconto de R$ 20 no frete em pedidos acima de R$ 29</span>
+    </div>
+
+    <div style="margin-top:10px; font-size:13px;">
+      <strong>3 opções disponíveis</strong>
+    </div>
+    <div class="variants">
+      <div class="variant">
+        <img src="https://via.placeholder.com/160x160?text=Preto" alt="Preto">
+        Preto
+      </div>
+      <div class="variant">
+        <img src="https://via.placeholder.com/160x160?text=Vermelho" alt="Vermelho">
+        Vermelho
+      </div>
+      <div class="variant">
+        <img src="https://via.placeholder.com/160x160?text=Branco" alt="Branco">
+        Branco
+      </div>
+    </div>
+
+    <div style="margin-top:12px;">
+      <div class="protection-box">
+        <strong>Proteção do cliente</strong><br>
+        • Devolução gratuita<br>
+        • Reembolso automático por devolução<br>
+        • Pagamento seguro<br>
+        • Cupom por atraso na coleta
+      </div>
+    </div>
+  </div>
+
+  <!-- Cupom de envio -->
+  <div class="strip">
+    <div class="strip-left">
+      <span>Cupom de envio</span>
+      <span style="font-size:12px;">Desconto de R$ 20 no frete em pedidos acima de R$ 9</span>
+    </div>
+    <div>
+      <span class="strip-btn" style="background:#00c853;color:#fff;padding:6px 12px;border-radius:16px;font-size:12px;">Resgatar</span>
+    </div>
+  </div>
+
+  <!-- Vídeos de criadores -->
+  <div class="section">
+    <div class="section-title">Vídeos de criadores (30+)</div>
+    <div class="h-scroll">
+      <div class="video-card">
+        <img src="https://via.placeholder.com/160x220?text=Video+1" alt="">
+        <div class="video-badge">Ao vivo</div>
+      </div>
+      <div class="video-card">
+        <img src="https://via.placeholder.com/160x220?text=Video+2" alt="">
+        <div class="video-badge">Review</div>
+      </div>
+      <div class="video-card">
+        <img src="https://via.placeholder.com/160x220?text=Video+3" alt="">
+        <div class="video-badge">Receita</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Avaliações dos clientes -->
+  <div class="section">
+    <div class="reviews-header">
+      <div class="section-title">Avaliações dos clientes (2,4 mil)</div>
+      <a href="#" style="font-size:13px;color:#666;">Ver mais ›</a>
+    </div>
+    <div style="font-size:13px;margin-bottom:8px;">
+      <span class="stars">★★★★☆</span> 4,8 / 5
+    </div>
+
+    <div class="review-card">
+      <div class="review-top">
+        <div class="avatar"></div>
+        <div>
+          <div class="review-name">V**a</div>
+          <div class="stars">★★★★★</div>
+          <div class="review-meta">Item: Preto, 127V</div>
+        </div>
+      </div>
+      <div>
+        Minha primeira compra no TikTok, chegou certinho, funcionando perfeitamente!!!
+      </div>
+      <div class="review-photos">
+        <img src="https://via.placeholder.com/120x120?text=Foto1" alt="">
+        <img src="https://via.placeholder.com/120x120?text=Foto2" alt="">
+        <img src="https://via.placeholder.com/120x120?text=Foto3" alt="">
+        <img src="https://via.placeholder.com/120x120?text=Foto4" alt="">
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-top">
+        <div class="avatar"></div>
+        <div>
+          <div class="review-name">F**a C**o</div>
+          <div class="stars">★★★★★</div>
+          <div class="review-meta">Item: Preto, 220V</div>
+        </div>
+      </div>
+      <div>
+        Gostei do liquidificador, chegou rapidinho, só veio violada a caixa mas chegou tudo certo 👍
+      </div>
+      <div class="review-photos">
+        <img src="https://via.placeholder.com/120x120?text=Foto1" alt="">
+        <img src="https://via.placeholder.com/120x120?text=Foto2" alt="">
+        <img src="https://via.placeholder.com/120x120?text=Foto3" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- Avaliações da loja -->
+  <div class="section">
+    <div class="section-title">Avaliações da loja (2,4 mil)</div>
+    <div style="font-size:13px;margin-bottom:6px;">
+      📷 Inclui imagens ou vídeos (524)<br>
+      ⭐ 5,0 (2,1 mil)
+    </div>
+
+    <div class="store-card">
+      <div class="store-left">
+        <div class="store-logo">L</div>
+        <div>
+          <div class="store-name">LOi Brasil</div>
+          <div class="store-meta">22,8K vendido(s)</div>
+        </div>
+      </div>
+      <a href="#" class="store-btn">Visitar</a>
+    </div>
+  </div>
+
+  <!-- Descrição / Sobre este produto -->
+  <div class="section">
+    <div class="section-title">Sobre este produto</div>
+    <p style="font-size:13px;line-height:1.5;">
+      Com design moderno e 3 velocidades, o Liquidificador Mondial Turbo Power é ideal para preparar sucos, 
+      vitaminas, mousses e smoothies com facilidade. Suas lâminas em aço inox garantem maior durabilidade 
+      e eficiência no corte. Com capacidade de 2,2L, atende grandes porções e é perfeito para toda a família.
+    </p>
+    <div class="h-scroll" style="margin-top:8px;">
+      <div class="product-card" style="min-width:180px;">
+        <img src="https://via.placeholder.com/220x160?text=Pot%C3%AAncia+550W" alt="">
+        <div><strong>Potência 550W</strong></div>
+        <div>Mais força para triturar alimentos duros.</div>
+      </div>
+      <div class="product-card" style="min-width:180px;">
+        <img src="https://via.placeholder.com/220x160?text=L%C3%A2minas+Inox" alt="">
+        <div><strong>Lâminas em inox</strong></div>
+        <div>Cortes precisos, não enferruja e é fácil de limpar.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Você também pode gostar -->
+  <div class="section">
+    <div class="section-title">Você também pode gostar</div>
+    <div class="h-scroll">
+      <div class="product-card">
+        <img src="https://via.placeholder.com/200x160?text=Liquidificador+Vermelho" alt="">
+        <div>Liquidificador 3 velocidades 550W</div>
+        <div class="product-price">R$ 99,90</div>
+        <div class="badge-small">-24%</div>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/200x160?text=Copo+Reposi%C3%A7%C3%A3o" alt="">
+        <div>Copo p/ liquidificador</div>
+        <div class="product-price">R$ 42,72</div>
+        <div style="margin-top:2px;">
+          <span class="badge-small">5% OFF</span>
+          <span style="font-size:11px; color:#00b800; margin-left:4px;">Frete grátis</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Strip de afiliado repetido (como nas recomendações) -->
+  <div class="strip">
+    <div class="strip-left">
+      <span class="strip-pill">🔥 3.8K vendidos no mês passado</span>
+      <span>Ganhe <span class="strip-highlight">R$ 0,88</span> por venda</span>
+      <span style="color:#777;">1% comissão</span>
+    </div>
+    <div class="strip-right">
+      🎁 Amostra<br>reembolsável
+    </div>
+  </div>
+
+</div>
+
+<!-- Barra inferior fixa estilo TikTok -->
+<div class="bottom-bar-wrap">
+  <div class="bottom-bar">
+    <div class="bottom-icon-col">
+      <div class="bottom-icon">🏬</div>
+      <div>Loja</div>
+    </div>
+    <div class="bottom-icon-col">
+      <div class="bottom-icon">💬</div>
+      <div>Chat</div>
+    </div>
+    <a href="#" class="bottom-btn-secondary">Adicionar ao carrinho</a>
+    <!-- SUBSTITUA O # PELO LINK DO CHECKOUT IRONPAY -->
+    <a href="#" class="bottom-btn-primary">Comprar agora</a>
+  </div>
+</div>
+
+</body>
+</html>
